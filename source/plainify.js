@@ -1,8 +1,8 @@
 'use strict';
 function plainify(currObj, oldProp="", resObj={}) {
-	for(const currProp in currObj) {
-		
-		var fullProp = oldProp + currProp;
+	
+	Object.keys(currObj).forEach(function(currProp){		
+		const fullProp = oldProp + currProp;
 		const value = currObj[currProp];
 	
 		if (typeof value === 'object') {
@@ -11,6 +11,6 @@ function plainify(currObj, oldProp="", resObj={}) {
 		else {
 			resObj[fullProp.toString()] = value;
 		}	
-	}
+	});
 	return resObj;
 }

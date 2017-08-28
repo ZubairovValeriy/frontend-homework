@@ -1,30 +1,16 @@
 'use strict';
-function pl(obj, prop1, result) {
+function plainify(currObj, oldProp="", resObj={}) {
+	for(const currProp in currObj) {
+		
+		var fullProp = oldProp + currProp;
+		const value = currObj[currProp];
 	
-	for(const prop in obj) {
-		var pr = prop1 + "." + prop;
-		const value = obj[prop];
 		if (typeof value === 'object') {
-			pl(value, pr, result);
+			plainify(value, fullProp + ".", resObj);
 		}
 		else {
-			result[pr.toString()] = value
-		}
+			resObj[fullProp.toString()] = value;
+		}	
 	}
-	return result
-}
-
-function plainify(obj, prop) {
-	var result = {}
-	for(const prop in obj) {
-		const value = obj[prop];
-		var prop1 = prop;
-		if (typeof value === 'object') {
-			pl(value, prop1, result);
-		}
-		else {
-			result[prop] = value
-		}
-	}
-	return result;
+	return resObj;
 }
